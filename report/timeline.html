@@ -7,14 +7,13 @@
   .priv{color:#3fb950;font-weight:600;font-size:13px}
   main{padding:8px 40px 60px;max-width:1000px}
   .summary-box{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px 22px;margin-top:24px}
-  .summary-box .narr{font-size:16px}
+  .narr{font-size:16px}
   .exposure{display:flex;align-items:baseline;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid #30363d}
   .exposure b{font-size:30px;color:#ff7b72} .exposure span{color:#8b949e;font-size:13px}
   table{width:100%;border-collapse:collapse;font-size:14px}
   td{padding:12px 10px;border-bottom:1px solid #21262d;vertical-align:top}
-  .famt{font-weight:700;color:#79c0ff;white-space:nowrap}
-  .fdetail{color:#8b949e;font-size:13px;margin-top:3px}
-  .fstatus{color:#e3b341;font-size:13px}
+  .famt{font-weight:700;color:#79c0ff;white-space:nowrap} .sfile{color:#d2a8ff;white-space:nowrap}
+  .fdetail{color:#8b949e;font-size:13px;margin-top:3px} .fstatus{color:#e3b341;font-size:13px}
   .fev a,.src summary{color:#58a6ff;text-decoration:none} .fev a{margin-right:6px;font-size:12px}
   .event{display:flex;gap:16px;padding:10px 0;border-bottom:1px solid #21262d}
   .event.sig-high{background:#da36330d}
@@ -29,46 +28,24 @@
 </style></head><body>
 <header>
   <h1>PrivilegePod — Investigation Brief</h1>
-  <div class="priv">🔒 100% private · Qwen/Qwen2.5-7B-Instruct on NVIDIA GeForce RTX 4090 (Runpod) · $0.00 to any LLM vendor</div>
+  <div class="priv">🔒 100% private · NVIDIA GeForce RTX 4090 on Runpod · text: Qwen/Qwen2.5-7B-Instruct · vision: Qwen2.5-VL · $0.00 to any LLM vendor</div>
 </header>
 <main>
   <div class="summary-box">
-    <div class="narr">The primary dispute involved multiple invoices for staffing services, with several instances of invoices being approved then denied, underpayment, and withholding of funds. The most significant issue was the denial of invoice INV-0447 for $48,200, which was previously approved but later denied due to late submission and application of exclusion rules.</div>
-    <div class="exposure"><b>$69,550</b><span>total across 5 flagged findings · 34 emails reviewed</span></div>
+    <div class="narr">(no summary)</div>
+    <div class="exposure"><b>$0</b><span>across 0 flagged findings · 34 emails + 3 scans reviewed</span></div>
   </div>
 
   <h2>Findings</h2>
-  <table><tbody>
-      <tr>
-        <td class="famt">$1,150</td>
-        <td><b>INV-2021-0425 approved then denied</b><div class="fdetail">Disallows $1,150 from invoice INV-2021-0425 due to illegible receipts.</div></td>
-        <td class="fstatus">approved then denied, unpaid</td>
-        <td class="fev"><a href="#ev-0009_E09.eml">0009_E09.eml</a></td>
-      </tr>
-      <tr>
-        <td class="famt">$48,200</td>
-        <td><b>INV-0447 approved then denied</b><div class="fdetail">Denied due to services falling under a retroactive exclusion rule and late digital submission.</div></td>
-        <td class="fstatus">denied</td>
-        <td class="fev"><a href="#ev-0028_E24.eml">0028_E24.eml</a> <a href="#ev-0031_E26.eml">0031_E26.eml</a></td>
-      </tr>
-      <tr>
-        <td class="famt">$12,000</td>
-        <td><b>INV-2021-0440 underpayment</b><div class="fdetail">Noted underpayment of $12,000 on invoice INV-2021-0440 due to discrepancy in FEMA reimbursement.</div></td>
-        <td class="fstatus">underpayment</td>
-        <td class="fev"><a href="#ev-0023_E20.eml">0023_E20.eml</a></td>
-      </tr>
-      <tr>
-        <td class="famt">$5,000</td>
-        <td><b>INV-2021-0455 credit memo</b><div class="fdetail">Applied a $5,000 credit memo against INV-0455, resulting in a net payment of $48,300 for INV-2021-0455.</div></td>
-        <td class="fstatus">set aside</td>
-        <td class="fev"><a href="#ev-0030_E28.eml">0030_E28.eml</a></td>
-      </tr>
-      <tr>
-        <td class="famt">$3,200</td>
-        <td><b>INV-0447 duplicate line</b><div class="fdetail">Confirmed and noted a duplicate invoice entry for $3,200 on INV-2021-0429 and instructed to disregard it.</div></td>
-        <td class="fstatus">duplicate</td>
-        <td class="fev"><a href="#ev-0012_E11.eml">0012_E11.eml</a> <a href="#ev-0013_E12.eml">0013_E12.eml</a></td>
-      </tr></tbody></table>
+  <table><tbody><tr><td>No findings.</td></tr></tbody></table>
+
+  <h2>Scanned evidence · read by the vision model</h2><table><tbody>
+      <tr><td class="sfile">🖼 Approval_System_Screenshot_0447.png</td>
+        <td><b>Approval system — INV-0447</b><div class="fdetail">read: “”</div></td></tr>
+      <tr><td class="sfile">🖼 Payment_Portal_Status.png</td>
+        <td><b>Payment portal — INV-0447</b><div class="fdetail">read: “”</div></td></tr>
+      <tr><td class="sfile">🖼 INV-2021-0447_SCAN.png</td>
+        <td><b>Scanned invoice — INV-0447 ($48,200)</b><div class="fdetail">read: “”</div></td></tr></tbody></table>
 
   <h2>Full timeline · 34 events</h2>
   <details class="timeline"><summary>show the complete chronological timeline (click any event for its source email)</summary>
@@ -79,8 +56,7 @@
         <div class="head"><span class="actor">Robert Hale</span>
           
           
-          
-        </div>
+          </div>
         <div class="summary">Notified Meridian Healthcare Staffing of the award for Contract MSA-2021-114 with a ceiling of $2.0M.</div>
         
         <details class="src"><summary>📧 0001_E01.eml · Award Notice - Contract MSA-2021-114 Emergency Nurse Staffing</summary>
@@ -109,16 +85,14 @@ Robert Hale
 Contract Administrator
 Westridge Department of Health Services
 robert.hale@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0002_E02.eml" class="event sig-low">
       <div class="when">2021-02-16</div>
       <div class="ebody">
         <div class="head"><span class="actor">Meridian Healthcare Staffing</span>
           
           
-          
-        </div>
+          </div>
         <div class="summary">Confirmed acceptance of award notice for Contract MSA-2021-114 and provided contact information for billing and coordination.</div>
         
         <details class="src"><summary>📧 0002_E02.eml · RE: Award Notice - Contract MSA-2021-114 Emergency Nurse Staffing</summary>
@@ -149,16 +123,14 @@ Sarah Chen
 AR Manager
 Meridian Healthcare Staffing LLC
 s.chen@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0003_E03.eml" class="event sig-low">
       <div class="when">2021-02-24</div>
       <div class="ebody">
         <div class="head"><span class="actor">Maria Delgado</span>
           
           
-          
-        </div>
+          </div>
         <div class="summary">Noted completion of onboarding for 40 nurses under MSA-2021-114 and requested site details for deployment.</div>
         
         <details class="src"><summary>📧 0003_E03.eml · Onboarding - Wave 1 roster (40 nurses)</summary>
@@ -187,16 +159,14 @@ Maria Delgado
 Staffing Coordinator
 Meridian Healthcare Staffing LLC
 m.delgado@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0004_E04.eml" class="event sig-low">
       <div class="when">2021-03-01</div>
       <div class="ebody">
         <div class="head"><span class="actor">Robert Hale</span>
           
           
-          
-        </div>
+          </div>
         <div class="summary">Noted receipt and reviewed Wave 1 roster; instructed on site allocation and badge issuance.</div>
         
         <details class="src"><summary>📧 0004_E04.eml · RE: Onboarding - Wave 1 roster (40 nurses)</summary>
@@ -227,16 +197,14 @@ Robert Hale
 Contract Administrator
 Westridge Department of Health Services
 robert.hale@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0005_E05.eml" class="event sig-low">
       <div class="when">2021-03-18</div>
       <div class="ebody">
         <div class="head"><span class="actor">Tomas Rivera</span>
           <span class="amt">$57,720</span>
           <span class="refs">INV-2021-0418</span>
-          
-        </div>
+          </div>
         <div class="summary">Sent invoice INV-2021-0418 for $57,720 for services rendered under MSA-2021-114 during March 1-14, 2021.</div>
         
         <details class="src"><summary>📧 0005_E05.eml · Invoice INV-2021-0418 - Period Mar 1-14</summary>
@@ -267,16 +235,14 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0006_E06.eml" class="event sig-low">
       <div class="when">2021-03-25</div>
       <div class="ebody">
         <div class="head"><span class="actor">Janet Morrison</span>
           <span class="amt">$57,720</span>
           <span class="refs">INV-2021-0418</span>
-          
-        </div>
+          </div>
         <div class="summary">Invoice INV-2021-0418 was approved for full payment of $57,720.</div>
         
         <details class="src"><summary>📧 0006_E06.eml · RE: Invoice INV-2021-0418 - Period Mar 1-14</summary>
@@ -305,16 +271,14 @@ Janet Morrison
 Accounts Payable Lead
 Westridge Department of Health Services
 janet.morrison@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0007_E07.eml" class="event sig-low">
       <div class="when">2021-04-01</div>
       <div class="ebody">
         <div class="head"><span class="actor">Tomas Rivera</span>
           <span class="amt">$57,980</span>
           <span class="refs">INV-2021-0422</span>
-          
-        </div>
+          </div>
         <div class="summary">Sent invoice INV-2021-0422 for $57,980 covering services under MSA-2021-114 for March 15-28, 2021.</div>
         
         <details class="src"><summary>📧 0007_E07.eml · Invoice INV-2021-0422 - Period Mar 15-28</summary>
@@ -343,16 +307,14 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0008_E08.eml" class="event sig-low">
       <div class="when">2021-04-15</div>
       <div class="ebody">
         <div class="head"><span class="actor">Tomas Rivera</span>
           <span class="amt">$60,460</span>
           <span class="refs">INV-2021-0425</span>
-          
-        </div>
+          </div>
         <div class="summary">Sent invoice INV-2021-0425 for $60,460 covering services from Mar 29 to Apr 11.</div>
         
         <details class="src"><summary>📧 0008_E08.eml · Invoice INV-2021-0425 - Period Mar 29-Apr 11</summary>
@@ -381,16 +343,14 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0009_E09.eml" class="event sig-high">
       <div class="when">2021-04-22</div>
       <div class="ebody">
         <div class="head"><span class="actor">Janet Morrison</span>
           <span class="amt">$1,150</span>
           <span class="refs">INV-2021-0425</span>
-          <span class="sig sig-high">high</span>
-        </div>
+          <span class="sig">high</span></div>
         <div class="summary">Disallows $1,150 from invoice INV-2021-0425 due to illegible receipts and approves the remaining amount for payment.</div>
         <div class="flag">⚠ disallowed</div>
         <details class="src"><summary>📧 0009_E09.eml · RE: Invoice INV-2021-0425 - lodging receipts</summary>
@@ -421,16 +381,14 @@ Janet Morrison
 Accounts Payable Lead
 Westridge Department of Health Services
 janet.morrison@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0010_E10.eml" class="event sig-low">
       <div class="when">2021-04-28</div>
       <div class="ebody">
         <div class="head"><span class="actor">Tomas Rivera</span>
           <span class="amt">$58,020</span>
           <span class="refs">INV-2021-0429</span>
-          
-        </div>
+          </div>
         <div class="summary">Sent invoice INV-2021-0429 for $58,020 covering the period April 12-25.</div>
         
         <details class="src"><summary>📧 0010_E10.eml · Invoice INV-2021-0429 - Period Apr 12-25</summary>
@@ -459,16 +417,14 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0011_E33.eml" class="event sig-low">
       <div class="when">2021-05-03</div>
       <div class="ebody">
         <div class="head"><span class="actor">Maria Delgado</span>
           
           
-          
-        </div>
+          </div>
         <div class="summary">Provided weekly staffing update for MSA-2021-114 without mentioning any financial discrepancies.</div>
         
         <details class="src"><summary>📧 0011_E33.eml · Weekly staffing update - week of May 3</summary>
@@ -499,16 +455,14 @@ Maria Delgado
 Staffing Coordinator
 Meridian Healthcare Staffing LLC
 m.delgado@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0012_E11.eml" class="event sig-low">
       <div class="when">2021-05-06</div>
       <div class="ebody">
         <div class="head"><span class="actor">Janet Morrison</span>
           <span class="amt">$3,200</span>
           <span class="refs">INV-2021-0429, INV-2021-0422</span>
-          
-        </div>
+          </div>
         <div class="summary">Janet Morrison flags a possible duplicate invoice line for $3,200 on INV-2021-0429 for nurse J. Alvarez&#x27;s hours on April 12-13.</div>
         <div class="flag">⚠ duplicate</div>
         <details class="src"><summary>📧 0012_E11.eml · RE: Invoice INV-2021-0429 - possible duplicate lines</summary>
@@ -537,16 +491,14 @@ Janet Morrison
 Accounts Payable Lead
 Westridge Department of Health Services
 janet.morrison@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0013_E12.eml" class="event sig-low">
       <div class="when">2021-05-07</div>
       <div class="ebody">
         <div class="head"><span class="actor">Tomas Rivera</span>
           <span class="amt">$3,200</span>
           <span class="refs">INV-2021-0429, INV-2021-0422</span>
-          
-        </div>
+          </div>
         <div class="summary">Confirmed and noted a duplicate invoice entry for $3,200 on INV-2021-0429 and instructed to disregard it.</div>
         <div class="flag">⚠ duplicate</div>
         <details class="src"><summary>📧 0013_E12.eml · RE: Invoice INV-2021-0429 - duplicate confirmed</summary>
@@ -577,17 +529,15 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0014_E13.eml" class="event sig-low">
       <div class="when">2021-05-12</div>
       <div class="ebody">
-        <div class="head"><span class="actor">Tomas Rivera</span>
-          <span class="amt">$63,420</span>
-          <span class="refs">INV-2021-0431</span>
+        <div class="head"><span class="actor">?</span>
           
-        </div>
-        <div class="summary">Sent invoice INV-2021-0431 for $63,420 covering services from April 26 to May 9.</div>
+          
+          </div>
+        <div class="summary"></div>
         
         <details class="src"><summary>📧 0014_E13.eml · Invoice INV-2021-0431 - Period Apr 26-May 9</summary>
           <pre>From: Tomas Rivera &lt;t.rivera@meridianstaffing.example&gt;
@@ -615,16 +565,14 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0015_E14.eml" class="event sig-high">
       <div class="when">2021-05-18</div>
       <div class="ebody">
         <div class="head"><span class="actor">Janet Morrison</span>
           <span class="amt">$6,080</span>
           <span class="refs">INV-2021-0431</span>
-          <span class="sig sig-high">high</span>
-        </div>
+          <span class="sig">high</span></div>
         <div class="summary">Disputes 64 RN hours totaling $6,080 and requests a rebuilt invoice excluding those hours.</div>
         <div class="flag">⚠ denial</div>
         <details class="src"><summary>📧 0015_E14.eml · RE: Invoice INV-2021-0431 - please rebuild</summary>
@@ -655,16 +603,14 @@ Janet Morrison
 Accounts Payable Lead
 Westridge Department of Health Services
 janet.morrison@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0016_E15.eml" class="event sig-high">
       <div class="when">2021-05-19</div>
       <div class="ebody">
         <div class="head"><span class="actor">Meridian Healthcare Staffing</span>
           <span class="amt">$57,340</span>
           <span class="refs">INV-2021-0431R, INV-2021-0431</span>
-          <span class="sig sig-high">high</span>
-        </div>
+          <span class="sig">high</span></div>
         <div class="summary">Rebuilt invoice INV-2021-0431R for $57,340, with $6,080 disputed due to disagreement on payment of RN hours at Cedar Valley shelter</div>
         <div class="flag">⚠ withheld funds</div>
         <details class="src"><summary>📧 0016_E15.eml · RE: Invoice INV-2021-0431 - rebuilt (under protest)</summary>
@@ -695,16 +641,14 @@ Sarah Chen
 AR Manager
 Meridian Healthcare Staffing LLC
 s.chen@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0017_E16.eml" class="event sig-low">
       <div class="when">2021-05-26</div>
       <div class="ebody">
         <div class="head"><span class="actor">Janet Morrison</span>
           <span class="amt">$57,340</span>
           <span class="refs">INV-2021-0431R</span>
-          
-        </div>
+          </div>
         <div class="summary">Invoice INV-2021-0431R in the amount of $57,340 was approved for payment.</div>
         
         <details class="src"><summary>📧 0017_E16.eml · RE: Invoice INV-2021-0431R - approved</summary>
@@ -731,16 +675,14 @@ Janet Morrison
 Accounts Payable Lead
 Westridge Department of Health Services
 janet.morrison@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0018_E17.eml" class="event sig-low">
       <div class="when">2021-06-09</div>
       <div class="ebody">
         <div class="head"><span class="actor">Tomas Rivera</span>
           <span class="amt">$66,520.00</span>
           <span class="refs">INV-2021-0440</span>
-          
-        </div>
+          </div>
         <div class="summary">Sent invoice INV-2021-0440 for $66,520.00 covering services from May 24 to June 6.</div>
         
         <details class="src"><summary>📧 0018_E17.eml · Invoice INV-2021-0440 - Period May 24-Jun 6</summary>
@@ -769,16 +711,14 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0019_E18.eml" class="event sig-low">
       <div class="when">2021-06-15</div>
       <div class="ebody">
         <div class="head"><span class="actor">Greg Saunders</span>
           <span class="amt">$30,000</span>
           <span class="refs">INV-2021-0440</span>
-          
-        </div>
+          </div>
         <div class="summary">FEMA reimbursed $30,000 for invoice INV-2021-0440 related to Meridian nurse staffing for May.</div>
         
         <details class="src"><summary>📧 0019_E18.eml · FEMA PA Reimbursement - Meridian lines (May) INV-2021-0440</summary>
@@ -809,16 +749,14 @@ Greg Saunders
 Recovery Manager
 Pinnacle Disaster Recovery Partners
 g.saunders@pinnacledr.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0020_E19.eml" class="event sig-low">
       <div class="when">2021-06-23</div>
       <div class="ebody">
         <div class="head"><span class="actor">Janet Morrison</span>
           <span class="amt">$54,520.00</span>
           <span class="refs">INV-2021-0440</span>
-          
-        </div>
+          </div>
         <div class="summary">Confirmed partial payment of $54,520.00 against invoice INV-2021-0440 has been processed.</div>
         
         <details class="src"><summary>📧 0020_E19.eml · RE: Invoice INV-2021-0440 - partial payment</summary>
@@ -844,16 +782,14 @@ Janet Morrison
 Accounts Payable Lead
 Westridge Department of Health Services
 janet.morrison@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0021_E21.eml" class="event sig-low">
       <div class="when">2021-07-08</div>
       <div class="ebody">
         <div class="head"><span class="actor">Tomas Rivera</span>
           <span class="amt">$48,200</span>
           <span class="refs">INV-2021-0447, INV-2021-0447_SCAN.pdf</span>
-          
-        </div>
+          </div>
         <div class="summary">Sent scanned invoice INV-2021-0447 for $48,200 covering June 21 through July 4.</div>
         
         <details class="src"><summary>📧 0021_E21.eml · Invoice INV-2021-0447 - Period Jun 21-Jul 4 (scanned copy, system outa</summary>
@@ -884,16 +820,14 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0022_E22.eml" class="event sig-low">
       <div class="when">2021-07-09</div>
       <div class="ebody">
         <div class="head"><span class="actor">Robert Hale</span>
           <span class="amt">$48,200</span>
           <span class="refs">INV-0447</span>
-          
-        </div>
+          </div>
         <div class="summary">Approved invoice INV-0447 for $48,200 payment.</div>
         
         <details class="src"><summary>📧 0022_E22.eml · RE: Invoice INV-2021-0447 - APPROVED</summary>
@@ -924,16 +858,14 @@ Robert Hale
 Contract Administrator
 Westridge Department of Health Services
 robert.hale@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0023_E20.eml" class="event sig-high">
       <div class="when">2021-07-12</div>
       <div class="ebody">
         <div class="head"><span class="actor">Sarah Chen</span>
           <span class="amt">$12,000</span>
           <span class="refs">INV-2021-0440</span>
-          <span class="sig sig-high">high</span>
-        </div>
+          <span class="sig">high</span></div>
         <div class="summary">Noted underpayment of $12,000 on invoice INV-2021-0440 due to discrepancy in FEMA reimbursement</div>
         <div class="flag">⚠ underpayment</div>
         <details class="src"><summary>📧 0023_E20.eml · INV-2021-0440 - FEMA reimbursement discrepancy ($12,000)</summary>
@@ -964,16 +896,14 @@ Sarah Chen
 AR Manager
 Meridian Healthcare Staffing LLC
 s.chen@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0024_E30.eml" class="event sig-low">
       <div class="when">2021-07-21</div>
       <div class="ebody">
         <div class="head"><span class="actor">Tomas Rivera</span>
           <span class="amt">$56,600</span>
           <span class="refs">INV-2021-0452</span>
-          
-        </div>
+          </div>
         <div class="summary">Sent invoice INV-2021-0452 for $56,600 covering services from July 5-18, 2021.</div>
         
         <details class="src"><summary>📧 0024_E30.eml · Invoice INV-2021-0452 - Period Jul 5-18</summary>
@@ -1002,16 +932,14 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0025_E31.eml" class="event sig-low">
       <div class="when">2021-07-28</div>
       <div class="ebody">
         <div class="head"><span class="actor">Janet Morrison</span>
           <span class="amt">$56,600</span>
           <span class="refs">INV-2021-0452, MSA-2021-114</span>
-          
-        </div>
+          </div>
         <div class="summary">Invoice INV-0452 was approved for full payment of $56,600.</div>
         
         <details class="src"><summary>📧 0025_E31.eml · RE: Invoice INV-2021-0452 - approved</summary>
@@ -1040,16 +968,14 @@ Janet Morrison
 Accounts Payable Lead
 Westridge Department of Health Services
 janet.morrison@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0026_E23.eml" class="event sig-high">
       <div class="when">2021-08-02</div>
       <div class="ebody">
         <div class="head"><span class="actor">Sarah Chen</span>
           <span class="amt">$48,200</span>
           <span class="refs">INV-0447</span>
-          <span class="sig sig-high">high</span>
-        </div>
+          <span class="sig">high</span></div>
         <div class="summary">Followed up on the status of invoice INV-0447 for $48,200, which was approved but not paid.</div>
         <div class="flag">⚠ withheld funds</div>
         <details class="src"><summary>📧 0026_E23.eml · INV-2021-0447 - payment status?</summary>
@@ -1080,16 +1006,14 @@ Sarah Chen
 AR Manager
 Meridian Healthcare Staffing LLC
 s.chen@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0027_E27.eml" class="event sig-low">
       <div class="when">2021-08-03</div>
       <div class="ebody">
         <div class="head"><span class="actor">Tomas Rivera</span>
           <span class="amt">$53,300</span>
           <span class="refs">INV-2021-0455</span>
-          
-        </div>
+          </div>
         <div class="summary">Submitted invoice INV-2021-0455 for $53,300 in emergency nurse staffing services.</div>
         
         <details class="src"><summary>📧 0027_E27.eml · Invoice INV-2021-0455 - Period Jul 19-Aug 1</summary>
@@ -1120,16 +1044,14 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0028_E24.eml" class="event sig-high">
       <div class="when">2021-08-06</div>
       <div class="ebody">
         <div class="head"><span class="actor">Janet Morrison</span>
           
           <span class="refs">INV-2021-0447, INV-0447</span>
-          <span class="sig sig-high">high</span>
-        </div>
+          <span class="sig">high</span></div>
         <div class="summary">Noted that INV-0447 was denied due to services falling under a retroactive exclusion rule and late digital submission.</div>
         <div class="flag">⚠ denied</div>
         <details class="src"><summary>📧 0028_E24.eml · RE: INV-2021-0447 - denied</summary>
@@ -1160,16 +1082,14 @@ Janet Morrison
 Accounts Payable Lead
 Westridge Department of Health Services
 janet.morrison@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0029_E25.eml" class="event sig-high">
       <div class="when">2021-08-09</div>
       <div class="ebody">
         <div class="head"><span class="actor">Sarah Chen</span>
           <span class="amt">$48,200</span>
           <span class="refs">INV-0447</span>
-          <span class="sig sig-high">high</span>
-        </div>
+          <span class="sig">high</span></div>
         <div class="summary">Raised a discrepancy on INV-0447 as AP has denied the invoice despite previous approval for $48,200.</div>
         <div class="flag">⚠ denial</div>
         <details class="src"><summary>📧 0029_E25.eml · RE: INV-2021-0447 - you approved this on July 9</summary>
@@ -1202,16 +1122,14 @@ Sarah Chen
 AR Manager
 Meridian Healthcare Staffing LLC
 s.chen@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0030_E28.eml" class="event sig-low">
       <div class="when">2021-08-11</div>
       <div class="ebody">
         <div class="head"><span class="actor">Janet Morrison</span>
           <span class="amt">$48,300</span>
           <span class="refs">INV-2021-0455, INV-0455</span>
-          
-        </div>
+          </div>
         <div class="summary">Applied a $5,000 credit memo against INV-0455, resulting in a net payment of $48,300 for INV-2021-0455.</div>
         
         <details class="src"><summary>📧 0030_E28.eml · RE: Invoice INV-2021-0455 - credit applied</summary>
@@ -1240,16 +1158,14 @@ Janet Morrison
 Accounts Payable Lead
 Westridge Department of Health Services
 janet.morrison@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0031_E26.eml" class="event sig-high">
       <div class="when">2021-08-13</div>
       <div class="ebody">
         <div class="head"><span class="actor">Robert Hale</span>
           
           <span class="refs">INV-2021-0447</span>
-          <span class="sig sig-high">high</span>
-        </div>
+          <span class="sig">high</span></div>
         <div class="summary">Invoice INV-2021-0447 was denied by Westridge DHS due to application of governing rules.</div>
         <div class="flag">⚠ denial</div>
         <details class="src"><summary>📧 0031_E26.eml · RE: INV-2021-0447</summary>
@@ -1273,16 +1189,14 @@ Robert Hale
 Contract Administrator
 Westridge Department of Health Services
 robert.hale@dhs.westridge.gov.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0032_E29.eml" class="event sig-high">
       <div class="when">2021-08-16</div>
       <div class="ebody">
         <div class="head"><span class="actor">Sarah Chen, Meridian Healthcare Staffing</span>
           <span class="amt">$48,300</span>
           <span class="refs">INV-2021-0455, INV-0455</span>
-          <span class="sig sig-high">high</span>
-        </div>
+          <span class="sig">high</span></div>
         <div class="summary">Inquires about a credit memo on INV-2021-0455 and requests verification of the adjustment reducing the payment to $48,300.</div>
         <div class="flag">⚠ underpayment</div>
         <details class="src"><summary>📧 0032_E29.eml · RE: Invoice INV-2021-0455 - what credit memo?</summary>
@@ -1315,16 +1229,14 @@ Sarah Chen
 AR Manager
 Meridian Healthcare Staffing LLC
 s.chen@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0033_E35.eml" class="event sig-high">
       <div class="when">2021-08-17</div>
       <div class="ebody">
         <div class="head"><span class="actor">David Okafor</span>
           <span class="amt">$48,200</span>
           <span class="refs">INV-0447</span>
-          <span class="sig sig-high">high</span>
-        </div>
+          <span class="sig">high</span></div>
         <div class="summary">Noted underpayments and requested compilation of evidence for MSA-2021-114</div>
         <div class="flag">⚠ underpayment</div>
         <details class="src"><summary>📧 0033_E35.eml · Total exposure - underpayments to compile (internal)</summary>
@@ -1359,16 +1271,14 @@ David Okafor
 Chief Financial Officer
 Meridian Healthcare Staffing LLC
 d.okafor@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
     <div id="ev-0034_E32.eml" class="event sig-low">
       <div class="when">2021-08-18</div>
       <div class="ebody">
         <div class="head"><span class="actor">Tomas Rivera</span>
           <span class="amt">$49,900.00</span>
           <span class="refs">INV-2021-0461</span>
-          
-        </div>
+          </div>
         <div class="summary">Sent invoice INV-2021-0461 for $49,900.00 covering services from Aug 2-15.</div>
         
         <details class="src"><summary>📧 0034_E32.eml · Invoice INV-2021-0461 - Period Aug 2-15</summary>
@@ -1395,8 +1305,6 @@ Tomas Rivera
 Billing Specialist
 Meridian Healthcare Staffing LLC
 t.rivera@meridianstaffing.example</pre></details>
-      </div>
-    </div>
+      </div></div>
   </details>
-</main>
-</body></html>
+</main></body></html>
