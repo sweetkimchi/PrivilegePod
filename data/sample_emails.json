@@ -1,0 +1,56 @@
+[
+  {
+    "id": "EML-0001",
+    "date": "2024-03-11T09:42:00",
+    "from": "patricia.lang@acme-legal.com",
+    "to": ["ceo@acmewidgets.com"],
+    "cc": [],
+    "subject": "RE: Northwind demand letter - our legal options",
+    "body": "Dave,\n\nAs your outside counsel, here is my privileged legal advice on the Northwind demand letter. In my legal opinion we have a strong defense on the non-compete claim, but our exposure on the trade-secret count is real. I recommend we do NOT respond in writing until we've assessed litigation risk. Let's discuss settlement posture before their deadline.\n\nThis communication is protected by the attorney-client privilege.\n\nPatricia Lang\nLang & Associates, Outside Counsel"
+  },
+  {
+    "id": "EML-0002",
+    "date": "2024-03-12T14:05:00",
+    "from": "general.counsel@acmewidgets.com",
+    "to": ["litigation-team@acmewidgets.com"],
+    "cc": [],
+    "subject": "Litigation hold + work product memo - Northwind matter",
+    "body": "Team,\n\nAttached is my work-product memo analyzing our likely litigation strategy against Northwind, prepared in anticipation of the lawsuit we expect them to file. It contains my mental impressions of witness credibility and our settlement range. Do not forward outside the legal department. Preserve all documents per the litigation hold.\n\n- GC"
+  },
+  {
+    "id": "EML-0003",
+    "date": "2024-03-12T16:20:00",
+    "from": "marketing@acmewidgets.com",
+    "to": ["all-staff@acmewidgets.com"],
+    "cc": [],
+    "subject": "Q2 Newsletter: New widget launch + summer picnic!",
+    "body": "Hi everyone! Big things this quarter. The WidgetPro 3000 ships in June. Also, save the date for the company summer picnic on July 20th at Lakeside Park. RSVP to events@. Cheers!"
+  },
+  {
+    "id": "EML-0004",
+    "date": "2024-03-13T08:10:00",
+    "from": "dave@acmewidgets.com",
+    "to": ["sarah@acmewidgets.com"],
+    "cc": [],
+    "subject": "lunch?",
+    "body": "hey are you free for lunch thursday? thinking that taco place near the office. lmk"
+  },
+  {
+    "id": "EML-0005",
+    "date": "2024-03-13T11:55:00",
+    "from": "sales-director@acmewidgets.com",
+    "to": ["patricia.lang@acme-legal.com"],
+    "cc": ["ceo@acmewidgets.com"],
+    "subject": "Pricing for the new distributor deal",
+    "body": "Patricia - looping you in on the distributor pricing. We're thinking $42/unit with a 15% volume rebate. Mostly a business call but wanted you on the thread. Can you confirm the standard MSA terms still apply? Thanks."
+  },
+  {
+    "id": "EML-0006",
+    "date": "2024-03-14T19:30:00",
+    "from": "patricia.lang@acme-legal.com",
+    "to": ["ceo@acmewidgets.com", "general.counsel@acmewidgets.com"],
+    "cc": [],
+    "subject": "PRIVILEGED & CONFIDENTIAL: Settlement strategy",
+    "body": "Dave, counsel,\n\nMy legal recommendation: open at $250k, authority to $600k. Their counsel signaled they want this resolved before the board meeting. Do not put any number in writing to them directly - route all offers through me. My assessment of our trial odds is roughly 60/40 in our favor if we proceed. SSN on file for the settlement payee is 123-45-6789; keep that restricted.\n\nPrivileged attorney work product.\n\nPatricia"
+  }
+]

@@ -1,0 +1,11 @@
+invoice_id,period,billed_total,paid_amount,finding_amount,finding_theme,confidence,proof_files
+INV-2021-0418,"Mar 1, 2021 - Mar 14, 2021",57720.0,57720.0,0.0,,none,INV-2021-0418.pdf; WDHS_Warrant_Register_2021.xlsx
+INV-2021-0422,"Mar 15, 2021 - Mar 28, 2021",57980.0,57980.0,0.0,,none,INV-2021-0422.pdf; WDHS_Warrant_Register_2021.xlsx
+INV-2021-0425,"Mar 29, 2021 - Apr 11, 2021",60460.0,60460.0,0.0,Struck / lined-through receipts,floor,INV-2021-0425.pdf; WDHS_Warrant_Register_2021.xlsx; Lodging_Receipts_0425.pdf
+INV-2021-0429,"Apr 12, 2021 - Apr 25, 2021",58020.0,58020.0,3200.0,Duplicate line items (set aside),set_aside,INV-2021-0429.pdf; WDHS_Warrant_Register_2021.xlsx
+INV-2021-0431,"Apr 26, 2021 - May 9, 2021",63420.0,57340.0,6080.0,Amounts removed between original and rebuilt invoice,verification,INV-2021-0431.pdf; WDHS_Warrant_Register_2021.xlsx
+INV-2021-0440,"May 24, 2021 - Jun 6, 2021",66520.0,54520.0,12000.0,Third-party / FEMA funds reimbursed to agency but withheld from vendor,floor,INV-2021-0440.pdf; WDHS_Warrant_Register_2021.xlsx; FEMA_PA_Reimbursement_Summary.xlsx
+INV-2021-0447,"Jun 21, 2021 - Jul 4, 2021",48200.0,0.0,48200.0,Approved invoice never paid (last-day-of-stay denial),floor,INV-2021-0447_SCAN.pdf; WDHS_Warrant_Register_2021.xlsx; Approval_System_Screenshot_0447.png; Payment_Portal_Status.png
+INV-2021-0452,"Jul 5, 2021 - Jul 18, 2021",56600.0,56600.0,0.0,,none,INV-2021-0452.pdf; WDHS_Warrant_Register_2021.xlsx
+INV-2021-0455,"Jul 19, 2021 - Aug 1, 2021",53300.0,48300.0,5000.0,Credit memo applied with no credit memo ever issued,floor,INV-2021-0455.pdf; WDHS_Warrant_Register_2021.xlsx
+INV-2021-0461,"Aug 2, 2021 - Aug 15, 2021",49900.0,49900.0,0.0,,none,INV-2021-0461.pdf; WDHS_Warrant_Register_2021.xlsx
