@@ -1,211 +1,122 @@
 # PrivilegePod 🔒
 
-**Run confidential-document AI analysis on open-source models on your own Runpod
-GPUs — so privileged evidence never touches OpenAI or Anthropic.**
+**Private investigation timelines from a pile of evidence — built by an
+open-source model running on your own Runpod serverless GPUs. Confidential
+documents never leave your infrastructure.**
 
-PrivilegePod is the private inference layer for [AuditRouter](../AuditRouter), a
-billed-vs-paid reconciliation engine. AuditRouter reads a pile of emails +
-documents + a payer's ledger and reconstructs, per invoice, what was billed vs.
-what was actually paid — emitting a master spreadsheet, a hyperlinked PDF, and a
-click-to-source evidence viewer.
-
-Its one privacy leak: the LLM pipeline calls a hosted vendor (Claude / GPT).
-For privileged or confidential matters — litigation discovery, government
-audits, healthcare billing — that is a non-starter: **you legally cannot paste
-the evidence into someone else's API.** PrivilegePod swaps the brain for an
-open-source model (Qwen2.5) running on **Runpod Flash serverless GPUs**, behind
-AuditRouter's existing provider interface. Same answer, same clickable proof,
-**nothing leaves your infrastructure.**
+Investigators, auditors, and litigators work with privileged material they
+cannot paste into OpenAI or Anthropic. PrivilegePod runs the analysis on an
+open-source model (Qwen2.5) on **Runpod Flash** GPUs, so the evidence stays
+private — and turns a folder of emails into a clickable "what happened" timeline.
 
 ---
 
-## The idea in one line
+## What it does
 
-> The "Router" in AuditRouter used to route to Anthropic/OpenAI. PrivilegePod
-> makes it route to **your own GPU**. Every token stays private; the routing log
-> reads `qwen-2.5 (runpod)` at **$0.00 to any vendor.**
+Point it at a folder of emails. For each one, a model on your GPU extracts a
+structured timeline event — **who acted, what happened, amounts, invoice
+references, and any red flag** (denial, underpayment, withheld funds). The events
+are assembled into a single HTML timeline where **every event expands to show the
+exact source email** it came from.
 
----
+## Input
 
-## What goes IN  (the input)
+A corpus of `.eml` emails (the evidence). The bundled demo (`example_file/`) is a
+synthetic billing dispute — Meridian Healthcare Staffing vs. Westridge DHS, 34
+emails with invoice / receipt / spreadsheet attachments.
 
-**1. An evidence corpus — the confidential material.** Whatever a matter
-actually generated:
+## Output
 
-| Kind | Formats | In the demo corpus (`example_file/`) |
-|------|---------|--------------------------------------|
-| Emails | `.eml`, `.mbox` export | 34 emails |
-| Invoices | PDF (text **and** scanned/photographed) | 11 invoice PDFs incl. a blurry photo scan |
-| Receipts / screenshots | PDF, PNG | lodging receipts, vendor-portal screenshots |
-| Spreadsheets | XLSX | billing register, FEMA summary, roster |
-| Payer ledger | XLSX | `WDHS_Warrant_Register_2021.xlsx` (what was paid) |
+`report/timeline.html` — a self-contained, chronological timeline:
 
-**2. A matter preset (YAML)** describing the domain so the engine stays generic:
-entity names (vendor/payer), line-type vocabulary, invoice-number patterns, and
-which spreadsheet columns are amounts. Ships with `nurse-staffing.yaml`.
+- one event per email, sorted by date
+- red flags highlighted (denials, underpayments, withheld funds)
+- amounts and invoice numbers surfaced
+- **click any event to read its source email inline**
+- header shows which model + GPU produced it
 
-**3. Per-request input to the Flash GPU endpoint** (what the model actually
-sees). The endpoint is a private, structured-output LLM call:
+## How you view it
 
-```jsonc
-POST /llm_worker/runsync
-{
-  "input": { "input_data": {
-    "system": "You are a litigation-support analyst reconciling invoices…",
-    "user":   "SUBJECT: Invoice INV-2021-0447 …\nBODY: …",
-    "schema": { /* JSON Schema, e.g. MatchResult / ExtractionPlan */ },
-    "max_tokens": 1024
-  }}
-}
+It's a single HTML file. Open it in any browser:
+
+```bash
+open report/timeline.html
 ```
 
-The `schema` forces the model (via vLLM **guided-JSON decoding**) to return
-exactly the shape AuditRouter expects — the in-house replacement for Anthropic's
-`messages.parse(output_format=PydanticModel)`.
-
-## What comes OUT  (the output)
-
-- **Per-invoice reconciliation:** billed vs. paid vs. unpaid, with a verification
-  status for each figure.
-- **Audit findings:** duplicates set aside, amounts removed between invoice
-  rebuilds, struck/illegible receipts, third-party (e.g. FEMA) funds kept, etc.
-- **Deliverables:** `master.xlsx`, a hyperlinked `MASTER_SUMMARY.pdf`, per-finding
-  PDFs, and a clickable evidence viewer where every dollar traces to the exact
-  email / attachment / cell it came from.
-- **A routing log** proving every LLM call went to `qwen-2.5 (runpod)` —
-  `$0.00` to any external vendor.
-
-On the bundled demo corpus the target is the published ground truth:
-**$66,350 floor / $72,430 verified unpaid**, including the headline exhibit —
-**INV-2021-0447 ($48,200): approved, then denied, paid $0.**
+Everything is embedded — no server, no external fetches. Hand the file to a
+colleague and it just works.
 
 ---
 
-## Architecture
+## How it runs on Runpod Flash
+
+A two-endpoint pipeline, both Flash `@Endpoint`s on serverless GPUs that scale to
+zero when idle — no Dockerfile:
+
+- **`llm_worker.py`** — text LLM (Qwen2.5-7B): structured-JSON event extraction
+  and synthesis.
+- **`vision_worker.py`** — vision LLM (Qwen2.5-VL): reads the *scanned* evidence
+  (the photographed $48,200 invoice, the approval/denial screenshots) that has no
+  text layer, and feeds it into the analysis.
+- **`analyze.py`** — ingests the emails locally and drives both endpoints (8-way
+  parallel), then renders the brief.
 
 ```
-                       confidential corpus (emails, PDFs, xlsx, ledger)
-                                          │
-                          ┌───────────────┴───────────────┐
-                          │   AuditRouter pipeline (local) │
-                          │   index → match → classify →   │
-                          │   extract → reconcile → render │
-                          └───────────────┬───────────────┘
-                                          │  every LLM call
-                                          ▼
-                        AuditRouter  llm/FlashProvider  (drop-in)
-                          builds prompt + JSON Schema, POSTs ↓
-                                          │
-            ──────────────────────────────┼──────────────────────────  your infra ends here ↑
-                                          ▼
-                    Runpod Flash  ›  @Endpoint privilege_llm  (GPU)
-                    vLLM serving Qwen2.5-Instruct + guided-JSON decoding
-                       scales 0→N workers per demand, back to 0 when idle
+  emails ──▶ analyze.py (local ingest) ──▶ llm_worker @Endpoint
+                                            (Qwen2.5 on a Runpod GPU)
+                                                   │
+            timeline.html  ◀── structured events ─┘
+  nothing is sent to any external LLM provider
 ```
-
-Nothing crosses the line into a third-party LLM. The model runs on Runpod
-serverless GPUs **you** control.
-
-### Flash endpoints
-
-| File | Endpoint | Hardware | Job |
-|------|----------|----------|-----|
-| `llm_worker.py` | `privilege_llm` | GPU (RTX 4090 / A5000) | Private structured LLM: `{system, user, schema}` → guided JSON |
-| `cpu_worker.py` | `cpu_worker` | CPU | Lightweight processing (scaffold) |
-| `gpu_worker.py` | `gpu_worker` | GPU | Hardware probe used to prove real GPU execution |
-
----
 
 ## Quickstart
 
 ```bash
-# 0) prerequisites: a Runpod account + API key (https://runpod.io → Settings → API Keys)
 python3 -m venv .venv && source .venv/bin/activate
 pip install runpod-flash
 
-# 1) authenticate (saves your key) — or put RUNPOD_API_KEY=... in .env.local
-flash login
+flash login                 # or put RUNPOD_API_KEY in .env.local
+flash dev                   # serves the llm_worker endpoint; note the port it prints
 
-# 2) run the dev server; it auto-discovers @Endpoint functions
-flash dev                         # serves http://localhost:8888
-
-# 3) call the private LLM (first call cold-starts a GPU worker on Runpod)
-curl -X POST http://localhost:8888/llm_worker/runsync \
-  -H 'Content-Type: application/json' \
-  -d '{"input":{"input_data":{
-        "system":"Reply with JSON only.",
-        "user":"Classify: INV-2021-0447_SCAN.pdf",
-        "schema":{"type":"object","properties":{"label":{"type":"string"}},"required":["label"]},
-        "max_tokens":64}}}'
+# in another shell (use the port flash printed):
+FLASH_PORT=8888 python analyze.py
+open report/timeline.html
 ```
 
-To run the full reconciliation privately, point AuditRouter at this endpoint:
+## Demo (showing it live)
+
+You demo your own terminal + browser + the Runpod console — not the editor:
+
+1. **Runpod dashboard** → Serverless → `privilege_llm`: idle at 0 workers, then run
+   the pipeline and watch workers scale up and the request counter climb. The
+   vendor's own console is the proof.
+2. **Terminal:** `flash dev` streams every Runpod call (POST, worker provisioning, GPU).
+3. **Terminal:** `FLASH_PORT=<port> python analyze.py` builds the brief; calls flow live.
+4. **Browser:** `open report/timeline.html` — the deliverable.
+
+A punchy one-liner for the stage:
 
 ```bash
-# in AuditRouter/backend
-export LLM_BACKEND=flash
-export FLASH_ENDPOINT_URL=http://localhost:8888
-python -m auditrouter.demo          # same pipeline, private brain
+FLASH_PORT=<port> python live_call.py
+# →  POST .../llm_worker/runsync   (private model on your Runpod GPU)
+# ←  responded in 1.8s   GPU: NVIDIA GeForce RTX 4090 · $0.00 to any vendor
 ```
 
----
-
-## Proof it's a *real* Runpod GPU (not a mock)
-
-`gpu_worker` was invoked through `flash dev`; a real worker cold-started and
-returned its own hardware identity in **~59 seconds**:
-
-```json
-{"status":"COMPLETED","output":{
-   "message":"PrivilegePod GPU proof",
-   "gpu":{"available":true,"name":"NVIDIA GeForce RTX 4090"},
-   "python_version":"3.12.12"}}
-```
-
-A Mac has no NVIDIA device and reports `darwin / 3.13`; this is a **real RTX 4090
-on Linux / 3.12.12**. The Flash dev log shows the live provisioning against
-Runpod's control plane — searching real datacenters for capacity, then pulling
-the worker image:
-
-```
-POST /gpu_worker/runsync
-gpu_worker │ waiting  No workers available … gpu type ADA_24 in US-CA-2, US-IL-1, …
-gpu_worker │ pulling image
-```
-
-`llm_worker` additionally returns a `_runpod_proof` block (`host`, `os`, `gpu`,
-`cuda`) on every inference, so each private LLM call is self-verifying.
-
-### Cost shape
-
-Serverless bills only while your code runs, and scales to **zero** when idle.
-CPU runs cost a fraction of a cent; a 4090 is ~$0.0002–0.0005/sec, so the
-~1-minute proof above cost a couple of cents. The corpus is ~61 LLM calls — a
-queue-based batch that spins workers up on demand and back down after, which is
-exactly the workload Runpod Flash is built for.
-
----
+You can also hit the endpoint interactively in the browser via Swagger at
+`http://localhost:<port>/docs`.
 
 ## Repo layout
 
 ```
 PrivilegePod/
-├── llm_worker.py     # the private structured-LLM Flash GPU endpoint (vLLM + Qwen2.5)
-├── gpu_worker.py     # GPU hardware probe (proves real Runpod execution)
-├── cpu_worker.py     # CPU worker (scaffold)
-├── ingest.py         # local .eml → normalized records (stage-1 proof)
-├── example_file/     # synthetic evidence corpus + ground-truth answer key
-└── data/             # generated manifests
+├── llm_worker.py     # private text LLM Flash GPU endpoint (Qwen2.5-7B)
+├── vision_worker.py  # private vision Flash GPU endpoint (Qwen2.5-VL) for scans
+├── analyze.py        # ingest emails -> events -> findings -> brief
+├── live_call.py      # one live call, prints the Runpod GPU it ran on (demo)
+├── ingest.py         # standalone .eml parser
+├── example_file/     # synthetic evidence corpus
+└── report/           # generated timeline.html
 ```
 
-## Status
-
-- [x] Runpod Flash project + auth; end-to-end execution proven (CPU + **RTX 4090**)
-- [x] Offline baseline reproduces ground truth ($66,350 / $72,430) via AuditRouter
-- [x] `privilege_llm` GPU endpoint (vLLM + Qwen2.5, guided JSON) authored
-- [ ] Provision `privilege_llm` + validate structured output on a live worker
-- [ ] `FlashProvider` wired into AuditRouter; full private reconciliation run
-- [ ] Vision endpoint (Qwen2.5-VL) for the scanned $48,200 exhibit
-
-> Synthetic demo data only. Names, companies, amounts, and the `.example` email
-> domain are fictional.
+> Synthetic demo data — names, companies, and amounts are fictional. Built for
+> the Runpod Flash hackathon.

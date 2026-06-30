@@ -19,16 +19,16 @@ from runpod_flash import Endpoint, GpuType
 @Endpoint(
     name="privilege_llm",
     gpu=[GpuType.NVIDIA_GEFORCE_RTX_4090, GpuType.NVIDIA_RTX_A5000],
-    workers=(0, 2),
+    workers=(0, 8),
     dependencies=["torch", "transformers>=4.45", "accelerate"],
     idle_timeout=300,           # keep warm 5 min between calls (avoid reload)
     execution_timeout_ms=0,     # no per-call cap (extraction can run long)
     env={"HF_HUB_ENABLE_HF_TRANSFER": "1"},
 )
 class PrivilegeLLM:
-    # 3B keeps cold-starts fast while proving the loop; bump to 7B/14B for the
-    # full reconciliation quality. Apache-2.0, strong at structured output.
-    MODEL_ID = "Qwen/Qwen2.5-3B-Instruct"
+    # 7B for the reasoning-heavy synthesis step (3B grabbed full-invoice amounts
+    # and over-labeled denials). Fits the 4090's 24GB; Apache-2.0.
+    MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"
 
     def __init__(self):
         import torch
@@ -83,15 +83,15 @@ class PrivilegeLLM:
                 except json.JSONDecodeError:
                     parsed = None
 
-        proof = {"host": platform.node(), "os": platform.platform(),
-                 "model": self.MODEL_ID}
+        runtime = {"host": platform.node(), "os": platform.platform(),
+                   "model": self.MODEL_ID}
         try:
             import torch
 
-            proof["gpu"] = torch.cuda.get_device_name(0)
-            proof["cuda"] = torch.version.cuda
+            runtime["gpu"] = torch.cuda.get_device_name(0)
+            runtime["cuda"] = torch.version.cuda
         except Exception:
             pass
 
         return {"json": parsed, "raw": raw, "model": self.MODEL_ID,
-                "_runpod_proof": proof}
+                "runtime": runtime}
