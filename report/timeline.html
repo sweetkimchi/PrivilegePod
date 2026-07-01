@@ -28,24 +28,38 @@
 </style></head><body>
 <header>
   <h1>PrivilegePod — Investigation Brief</h1>
-  <div class="priv">🔒 100% private · NVIDIA GeForce RTX 4090 on Runpod · text: Qwen/Qwen2.5-7B-Instruct · vision: Qwen2.5-VL · $0.00 to any LLM vendor</div>
+  <div class="priv">🔒 100% private · NVIDIA GeForce RTX 4090 on Runpod · text: Qwen/Qwen2.5-7B-Instruct · vision: Qwen/Qwen2.5-VL-7B-Instruct · $0.00 to any LLM vendor</div>
 </header>
 <main>
   <div class="summary-box">
-    <div class="narr">(no summary)</div>
-    <div class="exposure"><b>$0</b><span>across 0 flagged findings · 34 emails + 3 scans reviewed</span></div>
+    <div class="narr">The primary dispute involved multiple invoices for staffing services, with the most significant issue being the approval and subsequent denial of invoice INV-0447 for $48,200, leading to no payment. Other disputes included underpayment, denial, and duplication of invoices.</div>
+    <div class="exposure"><b>$56,400</b><span>across 3 flagged findings · 34 emails + 3 scans reviewed</span></div>
   </div>
 
   <h2>Findings</h2>
-  <table><tbody><tr><td>No findings.</td></tr></tbody></table>
+  <table><tbody>
+      <tr><td class="famt">$48,200</td>
+        <td><b>INV-0447 approved then denied</b><div class="fdetail">Invoice INV-0447 was approved but later denied due to services falling under a retroactive exclusion rule and late digital submission.</div></td>
+        <td class="fstatus">denial</td>
+        <td class="fev"><a href="#ev-0028_E24.eml">0028_E24.eml</a> <a href="#ev-0031_E26.eml">0031_E26.eml</a></td></tr>
+      <tr><td class="famt">$5,000</td>
+        <td><b>INV-2021-0455 credit memo applied</b><div class="fdetail">A $5,000 credit memo was applied against invoice INV-2021-0455, reducing the net payment to $48,300.</div></td>
+        <td class="fstatus">underpayment</td>
+        <td class="fev"><a href="#ev-0030_E28.eml">0030_E28.eml</a></td></tr>
+      <tr><td class="famt">$3,200</td>
+        <td><b>INV-0447 duplicate line</b><div class="fdetail">A duplicate invoice line for $3,200 on INV-2021-0429 for nurse J. Alvarez&#x27;s hours on April 12-13 was identified and confirmed.</div></td>
+        <td class="fstatus">duplicate</td>
+        <td class="fev"><a href="#ev-0012_E11.eml">0012_E11.eml</a> <a href="#ev-0013_E12.eml">0013_E12.eml</a></td></tr></tbody></table>
 
   <h2>Scanned evidence · read by the vision model</h2><table><tbody>
       <tr><td class="sfile">🖼 Approval_System_Screenshot_0447.png</td>
-        <td><b>Approval system — INV-0447</b><div class="fdetail">read: “”</div></td></tr>
+        <td><b>Approval system — INV-0447</b><div class="fdetail">read: “INV-2021-0447; $48,200.00; APPROVED”</div></td></tr>
       <tr><td class="sfile">🖼 Payment_Portal_Status.png</td>
-        <td><b>Payment portal — INV-0447</b><div class="fdetail">read: “”</div></td></tr>
+        <td><b>Payment portal — INV-0447</b><div class="fdetail">read: “INV-2021-0447; $48,200.00; DENIED”</div></td></tr>
       <tr><td class="sfile">🖼 INV-2021-0447_SCAN.png</td>
-        <td><b>Scanned invoice — INV-0447 ($48,200)</b><div class="fdetail">read: “”</div></td></tr></tbody></table>
+        <td><b>Scanned invoice — INV-0447 ($48,200)</b><div class="fdetail">read: “Invoice Number: INV-2021-0447  
+Total Amount: $48,200.00  
+Service Period: Jun 21, 2021 - Jul 4, 2021”</div></td></tr></tbody></table>
 
   <h2>Full timeline · 34 events</h2>
   <details class="timeline"><summary>show the complete chronological timeline (click any event for its source email)</summary>
@@ -533,11 +547,11 @@ t.rivera@meridianstaffing.example</pre></details>
     <div id="ev-0014_E13.eml" class="event sig-low">
       <div class="when">2021-05-12</div>
       <div class="ebody">
-        <div class="head"><span class="actor">?</span>
-          
-          
+        <div class="head"><span class="actor">Tomas Rivera</span>
+          <span class="amt">$63,420</span>
+          <span class="refs">INV-2021-0431</span>
           </div>
-        <div class="summary"></div>
+        <div class="summary">Sent invoice INV-2021-0431 for $63,420 covering services from April 26 to May 9.</div>
         
         <details class="src"><summary>📧 0014_E13.eml · Invoice INV-2021-0431 - Period Apr 26-May 9</summary>
           <pre>From: Tomas Rivera &lt;t.rivera@meridianstaffing.example&gt;

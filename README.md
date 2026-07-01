@@ -1,23 +1,35 @@
+<div align="center">
+
 # PrivilegePod 🔒
 
-**Private investigation timelines from a pile of evidence — built by an
-open-source model running on your own Runpod serverless GPUs. Confidential
-documents never leave your infrastructure.**
+**Private investigation briefs from a pile of evidence — open-source models on your own Runpod GPUs.**
+_Confidential documents never leave your infrastructure._
 
-Investigators, auditors, and litigators work with privileged material they
-cannot paste into OpenAI or Anthropic. PrivilegePod runs the analysis on an
-open-source model (Qwen2.5) on **Runpod Flash** GPUs, so the evidence stays
-private — and turns a folder of emails into a clickable "what happened" timeline.
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+&nbsp;![Python](https://img.shields.io/badge/Python-3.11%E2%80%933.12-3776AB?logo=python&logoColor=white)
+&nbsp;![Runpod Flash](https://img.shields.io/badge/Runpod-Flash-6C3EF6)
+&nbsp;![Models](https://img.shields.io/badge/models-Qwen2.5--7B_%2B_Qwen2.5--VL-FF6A00?logo=huggingface&logoColor=white)
+&nbsp;![Endpoints](https://img.shields.io/badge/Flash_endpoints-2_(text_%2B_vision)-blueviolet)
+&nbsp;![Vendor egress](https://img.shields.io/badge/LLM_vendor_egress-%240.00-3FB950)
+
+</div>
+
+Investigators, auditors, and litigators work with privileged material they cannot
+paste into OpenAI or Anthropic. PrivilegePod runs the analysis on open-source
+models (Qwen2.5 text + Qwen2.5-VL vision) on **Runpod Flash** GPUs, so the
+evidence stays private — and turns a folder of emails and scanned documents into
+a clickable investigation brief.
 
 ---
 
 ## What it does
 
-Point it at a folder of emails. For each one, a model on your GPU extracts a
-structured timeline event — **who acted, what happened, amounts, invoice
-references, and any red flag** (denial, underpayment, withheld funds). The events
-are assembled into a single HTML timeline where **every event expands to show the
-exact source email** it came from.
+Point it at a folder of emails. A text model on your GPU extracts a structured
+event from each one (who acted, amounts, invoice refs, red flags); a vision model
+reads the *scanned* evidence that has no text layer; and a synthesis pass distills
+it all into a short narrative + a **findings table** of the actual money
+discrepancies. The result is a single HTML brief where **every event expands to
+show the exact source email** it came from.
 
 ## Input
 
@@ -27,13 +39,14 @@ emails with invoice / receipt / spreadsheet attachments.
 
 ## Output
 
-`report/timeline.html` — a self-contained, chronological timeline:
+`report/timeline.html` — a self-contained investigation brief:
 
-- one event per email, sorted by date
-- red flags highlighted (denials, underpayments, withheld funds)
-- amounts and invoice numbers surfaced
-- **click any event to read its source email inline**
-- header shows which model + GPU produced it
+- a plain-English **narrative** + a **findings table** (disputed amounts and their
+  status) with a total-exposure figure
+- a **scanned evidence** section showing what the vision model read off the images
+- the full chronological **timeline**, where you **click any event to read its
+  source email inline**
+- header shows which models + GPU produced it ($0.00 to any vendor)
 
 ## How you view it
 
@@ -62,11 +75,13 @@ zero when idle — no Dockerfile:
   parallel), then renders the brief.
 
 ```
-  emails ──▶ analyze.py (local ingest) ──▶ llm_worker @Endpoint
-                                            (Qwen2.5 on a Runpod GPU)
-                                                   │
-            timeline.html  ◀── structured events ─┘
-  nothing is sent to any external LLM provider
+  emails ─┐                    ┌─▶ llm_worker    @Endpoint (Qwen2.5-7B  text)
+          ├─▶ analyze.py ──────┤
+  scans ──┘                    └─▶ vision_worker @Endpoint (Qwen2.5-VL  vision)
+                                          │  events + scanned evidence
+                                          ▼
+                          llm_worker synthesis ──▶ report/timeline.html
+  both models run on YOUR Runpod GPUs — nothing is sent to any external LLM provider
 ```
 
 ## Quickstart
@@ -76,7 +91,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install runpod-flash
 
 flash login                 # or put RUNPOD_API_KEY in .env.local
-flash dev                   # serves the llm_worker endpoint; note the port it prints
+flash dev                   # serves the llm_worker + vision_worker endpoints; note the port
 
 # in another shell (use the port flash printed):
 FLASH_PORT=8888 python analyze.py

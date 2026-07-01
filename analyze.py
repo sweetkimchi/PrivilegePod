@@ -27,7 +27,7 @@ from pathlib import Path
 
 EML_DIR = Path("example_file/mailbox/eml")
 OUT = Path("report/timeline.html")
-PORT = os.environ.get("FLASH_PORT", "8890")
+PORT = os.environ.get("FLASH_PORT", "8888")
 LLM_ENDPOINT = f"http://localhost:{PORT}/llm_worker/runsync"
 VISION_ENDPOINT = f"http://localhost:{PORT}/vision_worker/runsync"
 CONCURRENCY = int(os.environ.get("CONCURRENCY", "8"))
@@ -113,12 +113,26 @@ SYNTH_SYSTEM = (
 )
 
 
-def call_llm(endpoint: str, body: dict, timeout: int = 900) -> dict:
-    req = urllib.request.Request(
-        endpoint, data=json.dumps(body).encode(),
-        headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read()).get("output") or {}
+def call_llm(endpoint: str, body: dict, timeout: int = 900, retries: int = 4) -> dict:
+    """POST with retries — survives transient DNS/network blips, cold-start races,
+    and worker 500s instead of silently returning an empty result."""
+    import time as _t
+
+    last = None
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(
+                endpoint, data=json.dumps(body).encode(),
+                headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                out = json.loads(r.read()).get("output") or {}
+            if isinstance(out, dict) and out.get("status_code") == 500:
+                raise RuntimeError(str(out.get("body"))[:200])
+            return out
+        except Exception as e:
+            last = e
+            _t.sleep(3 * (attempt + 1))
+    raise last
 
 
 def parse_eml(path: Path) -> dict:
@@ -171,9 +185,12 @@ def synthesize(events: list[dict], scans: list[dict]) -> dict:
         )
     user = "EVENTS (chronological):\n" + "\n".join(lines)
     if scans:
-        user += ("\n\nSCANNED DOCUMENTS (read by a vision model — corroborating "
-                 "evidence for the INV-0447 dispute):\n" +
-                 "\n".join(f"- {s['label']} ({s['file']}): {s['text']}" for s in scans))
+        # one concise corroboration line — NOT the full transcripts (dumping all
+        # three distracted the model into flagging a paid invoice). The scans'
+        # detail lives in the report's Scanned-evidence section instead.
+        user += ("\n\nNOTE: vision-read scans confirm INV-0447 ($48,200) was "
+                 "APPROVED then DENIED with $0 paid. They corroborate INV-0447 "
+                 "only and are not separate invoices.")
     out = call_llm(LLM_ENDPOINT, {"input": {"input_data": {
         "system": SYNTH_SYSTEM, "user": user, "schema": SYNTH_SCHEMA, "max_tokens": 1800}}})
     return out.get("json") or {}

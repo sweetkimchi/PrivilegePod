@@ -13,7 +13,7 @@ import sys
 import time
 import urllib.request
 
-PORT = os.environ.get("FLASH_PORT", "8890")
+PORT = os.environ.get("FLASH_PORT", "8888")
 URL = f"http://localhost:{PORT}/llm_worker/runsync"
 
 user = sys.argv[1] if len(sys.argv) > 1 else (
